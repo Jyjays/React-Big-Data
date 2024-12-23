@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { IndexPageStyle, IndexPageContent } from './style';
 import TopPage from '../components/topPage';
 import LeftPage from '../components/leftPage';
-import CenterPage from '../components/centerPage';
 import RightPage from '../components/rightPage';
+import CenterPage from '../models/centerPage';
 
 class IndexPage extends Component {
   constructor(props) {
@@ -16,11 +16,8 @@ class IndexPage extends Component {
       <IndexPageStyle>
         <TopPage />
         <IndexPageContent>
-
-          <LeftPage />
-
-
           <RightPage />
+          <LeftPage />
         </IndexPageContent>
       </IndexPageStyle>
     );

@@ -16,10 +16,28 @@ import {
 class index extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      offline: null,
+    };
   }
+
+  componentDidMount() {
+    // 获取数据
+    fetch('http://120.46.31.49:8080/etc/kkllpm')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          offline: {
+            feedback: [], // 如果仍然需要 feedback 数据，可以替换为实际值
+            offlinePortalData: data,
+          },
+        });
+      })
+      .catch(error => console.error('数据获取失败:', error));
+  }
+
   render() {
-    const { offline, browseCategories, userIdentityCategory } = this.props;
+    const { offline, browseCategories, userIdentityCategory } = this.state;
     return (
       <RightPage>
         <RightTopBox>
@@ -30,7 +48,6 @@ class index extends PureComponent {
             <div className='right-top-content'>
               <BrowseCategories
                 browseCategories={browseCategories}></BrowseCategories>
-
             </div>
           </div>
         </RightTopBox>
@@ -49,22 +66,10 @@ class index extends PureComponent {
               <ModuleTitle>
                 <i className='iconfont'>&#xe790;</i>
               </ModuleTitle>
-              <div className='feedback-box'>
-                {offline
-                  ? offline.feedback.map((item, index) => {
-                      return (
-                        <div className='feedback-box-item' key={index}>
-                          <Feedback FeedbackData={item}></Feedback>
-                          <span className='dis-text'>{item.title}</span>
-                        </div>
-                      );
-                    })
-                  : ''}
-              </div>
               <div className='offline-portal-box'>
                 {offline ? (
                   <OfflinePortal
-                    offlinePortalData={offline.offlinePortalData}
+                    offlinePortalData={offline.offlinePortalData} // 传递数据
                   />
                 ) : (
                   ''
@@ -78,14 +83,5 @@ class index extends PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    browseCategories: state.rightPage.browseCategories,
-    userIdentityCategory: state.rightPage.userIdentityCategory,
-    offline: state.rightPage.offline,
-  };
-};
+export default connect()(index);
 
-const mapStateToDispatch = dispatch => ({});
-
-export default connect(mapStateToProps, mapStateToDispatch)(index);

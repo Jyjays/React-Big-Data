@@ -47,11 +47,28 @@ class index extends PureComponent {
       <Fragment>
         <TopBox>
           <div className='top_box'>
+            <Decoration10 className='top_decoration10' />
             <div className='title-box'>
+              <Decoration8
+                className='top_decoration8'
+                color={['#568aea', '#000000']}
+              />
               <div className='title'>
                 <span className='title-text'>{title}</span>
+                <Decoration6
+                  className='title-bototm top_decoration6'
+                  reverse={true}
+                  color={['#50e3c2', '#67a1e5']}
+                />
               </div>
+
+              <Decoration8
+                reverse={true}
+                className='top_decoration8'
+                color={['#568aea', '#000000']}
+              />
             </div>
+            <Decoration10 className='top_decoration10 top_decoration10_reverse' />
             <TimeBox>
               <h3>{this.state.timeStr}</h3>
             </TimeBox>

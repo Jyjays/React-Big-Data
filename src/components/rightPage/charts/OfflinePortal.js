@@ -12,7 +12,7 @@ class OfflinePortal extends PureComponent {
 
   render() {
     const { renderer } = this.state;
-    const { offlinePortalData } = this.props;
+    const { offlinePortalData } = this.props; // 接收父组件传递的数据
     return (
       <div
         style={{
@@ -21,7 +21,7 @@ class OfflinePortal extends PureComponent {
         }}>
         <Chart
           renderer={renderer}
-          option={OfflinePortalOptions(offlinePortalData)}
+          option={OfflinePortalOptions(offlinePortalData)} // 使用新配置
         />
       </div>
     );

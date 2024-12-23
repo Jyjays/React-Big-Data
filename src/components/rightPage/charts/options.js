@@ -152,7 +152,6 @@ export const FeedbackOptions = params => ({
 });
 
 export const OfflinePortalOptions = params => ({
-  color: ['#73A0FA', '#73DEB3', '#32C5E9', '#67E0E3'],
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -160,76 +159,48 @@ export const OfflinePortalOptions = params => ({
       crossStyle: {
         color: '#999',
       },
-      lineStyle: {
-        type: 'dashed',
-      },
     },
   },
-  grid: {
-    left: '15',
-    right: '15',
-    bottom: '0',
-    top: '30',
-    containLabel: true,
-  },
   legend: {
-    data: ['1', '2', '3', '4'],
-    show: true,
+    data: ['出口流量', '进口流量'],
     textStyle: {
       color: '#BCDCFF',
     },
   },
-  xAxis: [
-    {
-      type: 'category',
-      data: params.xData,
-      axisLabel: {
-        color: '#BCDCF0',
-        textStyle: {
-          fontSize: 12,
-        },
+  grid: {
+    left: '10%',
+    right: '10%',
+    bottom: '10%',
+    top: '20%',
+    containLabel: true,
+  },
+  xAxis: {
+    type: 'category',
+    data: params.map(item => item.time),
+    axisLine: {
+      lineStyle: {
+        color: '#94b5ca',
       },
-      splitLine: {
-        show: false,
-      },
-      axisTick: {
-        show: true,
-      },
-      axisLine: {
-        show: false,
-      },
-      boundaryGap: true,
     },
-    {
-      type: 'category',
-      axisLabel: {
-        color: '#BCDCF0',
-        textStyle: {
-          fontSize: 12,
-        },
+    axisLabel: {
+      textStyle: {
+        color: '#BCDCFF',
+        fontSize: 12,
       },
-      splitLine: {
-        show: false,
-      },
-      axisTick: {
-        show: true,
-      },
-      axisLine: {
-        show: false,
-      },
-      boundaryGap: true,
     },
-  ],
+  },
   yAxis: [
     {
       type: 'value',
-      name: '',
-      nameTextStyle: {
-        color: '#BCDCFF',
+      name: '车辆流量',
+      axisLine: {
+        lineStyle: {
+          color: '#94b5ca',
+        },
       },
       axisLabel: {
-        color: '#BCDCF0',
         textStyle: {
+          color: '#BCDCFF',
           fontSize: 12,
         },
       },
@@ -239,74 +210,33 @@ export const OfflinePortalOptions = params => ({
           color: '#252938',
         },
       },
-      axisTick: {
-        show: true,
-      },
-      axisLine: {
-        show: true,
-      },
-    },
-    {
-      type: 'value',
-      min: 0,
-      max: 100,
-      interval: 20,
-      name: '',
-      splitLine: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          color: '#94b5ca',
-        },
-      },
     },
   ],
   series: [
     {
-      name: '1',
-      type: 'line',
-      data: params.data1,
-    },
-    {
-      name: '2',
-      type: 'line',
-      data: params.data2,
-    },
-    {
-      name: '3',
-      type: 'line',
-      data: params.data3,
-    },
-    {
-      name: '4',
-      type: 'line',
-      data: params.data4,
-    },
-    {
-      name: '',
+      name: '出口流量',
       type: 'bar',
-      data: params.barData,
+      data: params.map(item => item.count), // 使用数据源的 count 值
+      barWidth: '30%',
       itemStyle: {
         normal: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgba(34,224,214,.8)',
-            },
-            {
-              offset: 0.5,
-              color: 'rgba(5,137,186,1)',
-            },
-            {
-              offset: 1,
-              color: 'rgba(11,12,31,1)',
-            },
+            { offset: 0, color: '#5A8BFA' },
+            { offset: 1, color: '#32C5E9' },
           ]),
-          barBorderRadius: 7.5,
         },
       },
-      barMaxWidth: 15,
+    },
+    {
+      name: '进口流量',
+      type: 'line',
+      data: params.map(item => item.count / 2), // 假设另一组数据为原数据的一半
+      smooth: true,
+      lineStyle: {
+        color: '#FFD700',
+      },
+      symbol: 'circle',
+      symbolSize: 8,
     },
   ],
 });

@@ -1,5 +1,6 @@
 {
   "private": true,
+  "proxy": "http://120.46.31.49:8080",
   "scripts": {
     "start": "set PORT=9000 && roadhog server",
     "build": "roadhog build",
