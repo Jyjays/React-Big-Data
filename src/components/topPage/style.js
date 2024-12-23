@@ -27,7 +27,7 @@ export const TopBox = styled.div`
 
       .title {
         position: relative;
-        width: 6.25rem;
+        width: 4.25rem;
         text-align: center;
         background-size: cover;
         background-repeat: no-repeat;

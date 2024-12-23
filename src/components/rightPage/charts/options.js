@@ -1,152 +1,84 @@
 import echarts from 'echarts/lib/echarts';
 
 export const BrowseCategoriesOptions = params => ({
-  radar: {
-    center: ['50%', '50%'],
-    radius: '70%',
-    name: {
-      formatter: function (name) {
-        let arr;
-        arr = ['{a|' + name + '}'];
-        return arr.join('\n');
-      },
-      textStyle: {
-        rich: {
-          a: {
-            color: '#BCDCFF',
-            fontSize: 14,
-            fontWeight: 600,
-            fontFamily: 'Source Han Sans CN',
-          },
-        },
-      },
-    },
-    nameGap: 5,
-    indicator: params.indicator,
-    splitLine: {
-      show: false,
-    },
-    axisLine: {
-      show: false,
-    },
-    splitArea: {
-      areaStyle: {
-        color: [
-          'rgba(84,136,255, 0.05)',
-          'rgba(84,136,255, 0.1)',
-          'rgba(84,136,255, 0.2)',
-          'rgba(84,136,255, 0.3)',
-          'rgba(84,136,255, 0.4)',
-          'rgba(84,136,255, 0.5)',
-        ].reverse(),
-        shadowColor: 'rgba(0, 0, 0, .5)',
-        shadowBlur: 5,
-        shadowOffsetX: 10,
-        shadowOffsetY: 10,
-      },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow', // 使用阴影指示器
     },
   },
-  series: [
-    {
-      name: '',
-      type: 'radar',
-      data: [params.data],
-      label: {
-        show: false,
-        formatter: function (params) {
-          return params.value + '';
-        },
-        color: '#9ae8ac',
-        distance: 10,
-        align: 'right',
-      },
-      symbol: 'none',
-      symbolSize: [6, 6],
-      lineStyle: {
-        color: 'rgba(160,159,246, 0.6)',
-        width: 2,
-      },
-      areaStyle: {
-        color: 'rgba(114,113,233,.4)',
-        opacity: 0.8,
-        shadowColor: 'rgba(115,149,255,1)',
-        shadowBlur: 10,
-      },
-    },
-  ],
-});
-
-export const FeedbackOptions = params => ({
-  title: {
-    text: `${params.number}%`,
-    left: '45%',
-    top: '40%',
-    textAlign: 'center',
+  legend: {
+    data: ['该站点客车入口数量', '该站点货车入口数量'],
     textStyle: {
-      fontSize: '16',
-      fontWeight: '500',
-      color: '#909dff',
-      textAlign: 'center',
+      color: '#BCDCFF',
+    },
+    top: '10%',
+  },
+  grid: {
+    left: '10%',
+    right: '10%',
+    bottom: '15%',
+    top: '25%',
+    containLabel: true,
+  },
+  xAxis: {
+    type: 'value', // x 轴为数值轴（水平）
+    axisLine: {
+      show: false, // 取消 y 轴主轴线
+    },
+    axisLabel: {
+      textStyle: {
+        color: '#BCDCFF',
+        fontSize: 12,
+      },
+    },
+    splitLine: {
+      lineStyle: {
+        color: '#252938',
+      },
+    },
+  },
+  yAxis: {
+    type: 'category', // y 轴为类别轴
+    data: params.map(item => item.category), // 使用类别数据
+    axisLine: {
+      lineStyle: {
+        color: '#94b5ca',
+      },
+    },
+    axisLabel: {
+      textStyle: {
+        color: '#BCDCFF',
+        fontSize: 12,
+      },
     },
   },
   series: [
     {
-      type: 'pie',
-      startAngle: 0,
-      radius: ['80%', '70%'],
-      center: ['50%', '50%'],
-      data: [
-        {
-          value: params.number,
-          name: params.title,
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#5a8bfa',
-                },
-                {
-                  offset: 1,
-                  color: '#831bdb',
-                },
-              ]),
-              shadowColor: 'rgba(175,143,230,.5)',
-              shadowBlur: 10,
-            },
-          },
-          label: {
-            show: false,
-          },
-          labelLine: {
-            normal: {
-              smooth: true,
-              lineStyle: {
-                width: 0,
-              },
-            },
-          },
-          hoverAnimation: false,
-        },
-        {
-          label: {
-            show: false,
-          },
-          labelLine: {
-            normal: {
-              smooth: true,
-              lineStyle: {
-                width: 0,
-              },
-            },
-          },
-          value: 100 - params.number,
-          hoverAnimation: true,
-          itemStyle: {
-            color: 'rgba(79,76,192, 0.3)',
-          },
-        },
-      ],
+      name: '该站点客车入口数量',
+      type: 'bar',
+      stack: '总量', // 堆叠到一起
+      data: params.map(item => item.outflow),
+      barWidth: '30%',
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+          { offset: 0, color: '#5A8BFA' },
+          { offset: 1, color: '#32C5E9' },
+        ]),
+      },
+    },
+    {
+      name: '该站点货车入口数量',
+      type: 'bar',
+      stack: '总量', // 堆叠到一起
+      data: params.map(item => item.inflow),
+      barWidth: '30%',
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+          { offset: 0, color: '#FFD700' },
+          { offset: 1, color: '#FFA500' },
+        ]),
+      },
     },
   ],
 });
@@ -192,11 +124,9 @@ export const OfflinePortalOptions = params => ({
   yAxis: [
     {
       type: 'value',
-      name: '车辆流量',
+      name: '车辆流量          \n',
       axisLine: {
-        lineStyle: {
-          color: '#94b5ca',
-        },
+        show: false, // 取消 y 轴主轴线
       },
       axisLabel: {
         textStyle: {
@@ -233,10 +163,15 @@ export const OfflinePortalOptions = params => ({
       data: params.map(item => item.count / 2), // 假设另一组数据为原数据的一半
       smooth: true,
       lineStyle: {
-        color: '#FFD700',
+        color: '#FFD700', // 设置线条颜色为黄色
       },
       symbol: 'circle',
       symbolSize: 8,
+      itemStyle: {
+        normal: {
+          color: '#FFD700', // 设置小球颜色与线条颜色相同
+        },
+      },
     },
   ],
 });

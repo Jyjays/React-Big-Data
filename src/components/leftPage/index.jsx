@@ -21,7 +21,7 @@ class index extends PureComponent {
               <ModuleTitle>
                 <i className='iconfont'>&#xe78f;</i>
               </ModuleTitle>
-              <div className='title-dis'>
+              {/* <div className='title-dis'>
                 <span>
                   平均接纳次数(小时):
                   <span className='title-dis-keyword'>{accessFrequency}次</span>
@@ -30,7 +30,7 @@ class index extends PureComponent {
                   流量峰值:
                   <span className='title-dis-keyword'>{peakFlow}M</span>
                 </span>
-              </div>
+              </div> */}
               {/* 图表 */}
               <TrafficSituation trafficSitua={trafficSitua}></TrafficSituation>
             </div>

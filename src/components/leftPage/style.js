@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LeftPage = styled.div`
-  width: 6.25rem;
+  width: 7.25rem;
   height: auto;
   padding: 0.2rem;
   padding-bottom: 0px;

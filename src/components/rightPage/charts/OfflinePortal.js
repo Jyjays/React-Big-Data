@@ -16,8 +16,8 @@ class OfflinePortal extends PureComponent {
     return (
       <div
         style={{
-          width: '5.375rem',
-          height: '2.875rem',
+          width: '7rem',
+          height: '5.375rem',
         }}>
         <Chart
           renderer={renderer}

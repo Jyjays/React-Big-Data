@@ -4,7 +4,7 @@ import { IndexPageStyle, IndexPageContent } from './style';
 import TopPage from '../components/topPage';
 import LeftPage from '../components/leftPage';
 import RightPage from '../components/rightPage';
-import CenterPage from '../models/centerPage';
+import CenterPage from '../components/centerPage';
 
 class IndexPage extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class IndexPage extends Component {
         <TopPage />
         <IndexPageContent>
           <RightPage />
+          <CenterPage />
           <LeftPage />
         </IndexPageContent>
       </IndexPageStyle>

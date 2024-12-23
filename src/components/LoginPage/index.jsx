@@ -32,12 +32,11 @@ class LoginPage extends Component {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
-      if (result.success) {
+      if (response.status === 200) {
         alert('Login successful!');
         this.props.history.push('/index');
       } else {
-        alert('Login failed: ' + result.message);
+        alert('Login failed: ' + response.status);
       }
     } catch (error) {
       alert(error);

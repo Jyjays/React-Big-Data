@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 import { BorderBox13 } from '@jiaminghi/data-view-react';
 import BrowseCategories from './charts/BrowseCategories';
-import UserIdentityCategory from './charts/UserIdentityCategory';
 import OfflinePortal from './charts/OfflinePortal';
-import Feedback from './charts/Feedback';
 import { ModuleTitle } from '../../style/globalStyledSet';
 import { connect } from 'dva';
 import {
@@ -22,13 +20,12 @@ class index extends PureComponent {
   }
 
   componentDidMount() {
-    // 获取数据
+    // 获取部署服务器上的数据
     fetch('http://120.46.31.49:8080/etc/kkllpm')
       .then(response => response.json())
       .then(data => {
         this.setState({
           offline: {
-            feedback: [], // 如果仍然需要 feedback 数据，可以替换为实际值
             offlinePortalData: data,
           },
         });
@@ -37,39 +34,33 @@ class index extends PureComponent {
   }
 
   render() {
-    const { offline, browseCategories, userIdentityCategory } = this.state;
+    const { offline, browseCategories} = this.state;
     return (
       <RightPage>
         <RightTopBox>
-          <div className='right-top'>
+        <BorderBox13 className='right-bottom-borderBox13'>
+          <div className='right-bottom'>
             <ModuleTitle>
-              <i className='iconfont'>&#xe7f7;</i>
+              <i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}>&#xe7fd;</i>
+              <span style={{ textAlign: 'center', marginLeft: '150px' }}>入站口排行榜</span>
             </ModuleTitle>
             <div className='right-top-content'>
               <BrowseCategories
                 browseCategories={browseCategories}></BrowseCategories>
             </div>
           </div>
+          </BorderBox13>
         </RightTopBox>
-
-        <RightCenterBox>
-          <ModuleTitle>
-            <i className='iconfont'>&#xe7fd;</i>
-          </ModuleTitle>
-          <UserIdentityCategory
-            userIdentityCategory={userIdentityCategory}></UserIdentityCategory>
-        </RightCenterBox>
 
         <RightBottomBox>
           <BorderBox13 className='right-bottom-borderBox13'>
             <div className='right-bottom'>
-              <ModuleTitle>
-                <i className='iconfont'>&#xe790;</i>
-              </ModuleTitle>
+              <ModuleTitle><i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}>&#xe790;</i>
+              <span style={{ textAlign: 'center', marginLeft: '120px' }}>24小时车辆流量动态数据图</span></ModuleTitle>
               <div className='offline-portal-box'>
                 {offline ? (
                   <OfflinePortal
-                    offlinePortalData={offline.offlinePortalData} // 传递数据
+                    offlinePortalData={offline.offlinePortalData} // 使用实时数据
                   />
                 ) : (
                   ''
@@ -84,4 +75,3 @@ class index extends PureComponent {
 }
 
 export default connect()(index);
-
