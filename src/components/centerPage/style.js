@@ -1,19 +1,48 @@
 import styled from 'styled-components';
 
 export const CenterPage = styled.div`
-  margin-top: 0.25rem;
-  display: flex;
-  width: 10rem;
-  height: 100%
-  flex-direction: column;
-  align-items: center;
+  width: 11rem;
+  height: auto;
+  padding: 0.2rem;
+  padding-bottom: 0px;
 `;
 
+export const CenterTop = styled.div`
+  position: relative;
+  height: 8rem;
+  width: 100%;
+  margin-top: 0.2rem;
+  .left-top-borderBox12 {
+    width: inherit;
+    height: inherit;
+    padding: 0.1875rem;
+    .left-top {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background-color: rgba(19, 25, 47, 0.6);
+      .title-dis {
+        margin-top: 0.1875rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 0.2rem;
+        color: #c0c9d2;
+        &-keyword {
+          padding-left: 0.125rem;
+          color: #47dae8;
+        }
+      }
+    }
+  }
+`;
+
+
 export const CenterBottom = styled.div`
-  display: flex;
+  position: relative;
   margin-bottom: 0.25rem;
-  margin-top: 0.875rem;
   bottom: 0;
+  margin-top: 0.2rem;
   width: 100%;
   .center-bottom-borderBox13 {
     width: inherit;

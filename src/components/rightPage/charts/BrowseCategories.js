@@ -4,24 +4,30 @@ import { BrowseCategoriesOptions } from './options';
 
 class BrowseCategories extends PureComponent {
   render() {
-    // 假数据：每个类别包含入口流量和出口流量
-    const fakeData = [
-      { category: '广州东站', inflow: 30, outflow: 10 },
-      { category: '广州南站', inflow: 50, outflow: 20 },
-      { category: '深圳西站', inflow: 60, outflow: 15 },
-      { category: '汕尾站', inflow: 60, outflow: 25 },
-      { category: '揭阳站', inflow: 70, outflow: 30 },
-    ];
+    const { browseCategories } = this.props;
+
+    // Process the data from props
+    const processedData = browseCategories.map(item => {
+      // Extract station name after the last '-'
+      const parts = item.kkmc.split('-'); // Split the string by '-'
+      const stationName = parts.pop(); // Take the last part
+
+      return {
+        category: stationName, // Extracted station name
+        inflow: item.count, // Passenger vehicle count
+      };
+    }).reverse(); // Reverse the order of the data
 
     return (
       <div
         style={{
           width: '7rem',
           height: '6rem',
-        }}>
+        }}
+      >
         <Chart
           renderer="canvas"
-          option={BrowseCategoriesOptions(fakeData)}
+          option={BrowseCategoriesOptions(processedData)}
         />
       </div>
     );

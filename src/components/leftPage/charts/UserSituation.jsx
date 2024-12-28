@@ -1,42 +1,22 @@
 import React, { PureComponent } from 'react';
-import { userOptions } from './options';
-import { ScrollBoard } from '@jiaminghi/data-view-react';
+import Chart from '../../../utils/chart';
+import { userSituationOptions } from './options';
 
 class UserSituation extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      config: {
-        headerBGC: '#443dc5',
-        oddRowBGC: '#09184F',
-        evenRowBGC: '#070C34',
-        index: true,
-        indexHeader: '序号',
-        columnWidth: [50, 100, 200],
-        align: ['center'],
-        rowNum: 10,
-      },
-    };
-  }
-
   render() {
     const { userSitua } = this.props;
-    const config = {
-      ...this.state.config,
-      ...userOptions(userSitua),
-    };
 
     return (
-      <div>
+      <div
+        style={{
+          width: '100%',
+          height: '90%',
+        }}
+      >
         {userSitua ? (
-          <ScrollBoard
-            config={config}
-            style={{
-              width: '5.475rem',
-              height: '6.875rem',
-            }}></ScrollBoard>
+          <Chart renderer="canvas" option={userSituationOptions(userSitua)} />
         ) : (
-          ''
+          <div style={{ color: 'gray' }}>No data available</div>
         )}
       </div>
     );
