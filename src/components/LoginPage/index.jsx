@@ -19,7 +19,7 @@ class LoginPage extends Component {
   handleLogin = async () => {
     const { username, password } = this.state;
     try {
-      const response = await fetch('http://120.46.31.49:8080/user/login', {
+      const response = await fetch('http://localhost:8080/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -12,13 +12,13 @@ class TrafficSituation extends PureComponent {
 
   processData = (data) => {
     const passengerData = [
-      { name: '一型车（客）', value: data.find((d) => d.hpzl === 1)?.count || 0 },
-      { name: '二型车（客）', value: data.find((d) => d.hpzl === 2)?.count || 0 },
+      { name: '一型车（客）', value: data.find((d) => d.hpzl === 1) ? data.find((d) => d.hpzl === 1).count : 0 },
+      { name: '二型车（客）', value: data.find((d) => d.hpzl === 2) ? data.find((d) => d.hpzl === 2).count : 0 },
     ];
 
     const freightData = [
-      { name: '一型车（货）', value: data.find((d) => d.hpzl === 51)?.count || 0 },
-      { name: '二型车（货）', value: data.find((d) => d.hpzl === 52)?.count || 0 },
+      { name: '一型车（货）', value: data.find((d) => d.hpzl === 3) ? data.find((d) => d.hpzl === 3).count : 0 },
+      { name: '二型车（货）', value: data.find((d) => d.hpzl === 4) ? data.find((d) => d.hpzl === 4).count : 0 },
     ];
 
     return { passengerData, freightData };

@@ -9,7 +9,7 @@ export const CenterPage = styled.div`
 
 export const CenterTop = styled.div`
   position: relative;
-  height: 8rem;
+  height: 6rem;
   width: 100%;
   margin-top: 0.2rem;
   .left-top-borderBox12 {
@@ -82,7 +82,7 @@ export const CenterBottom = styled.div`
   }
 
   .detail-list {
-    width: 100%; /* 确保宽度充满容器 */
+    width: 90%; /* 确保宽度充满容器 */
     // text-align: center; /* 确保文本对齐 */
     color: #bcdcff;
     font-size: 0.15rem;
@@ -121,4 +121,31 @@ export const CenterBottom = styled.div`
       display: none; /* Hide the scrollbar */
     }
   }
+`;
+
+export const CandlestickChartBox = styled.div`
+  width: 100%;
+  height: 5.5rem;
+  background-color: rgba(19, 25, 47, 0.6);
+  border-radius: 10px;
+  padding: 0.125rem;
+  position: relative;
+  overflow: hidden; /* Hide overflow */
+`;
+export const CandlestickChart = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 25, 47, 0.6);
+  border-radius: 10px;
+  padding: 0.125rem;
+  position: relative;
+`;
+export const TransactionScrollBox = styled.div`
+  width: 100%;
+  height: 5.5rem;
+  background-color: rgba(19, 25, 47, 0.6);
+  border-radius: 10px;
+  padding: 0.125rem;
+  position: relative;
+  overflow: hidden; /* Hide overflow */
 `;

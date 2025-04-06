@@ -1,6 +1,6 @@
 {
   "private": true,
-  "proxy": "http://120.46.31.49:8080",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "set PORT=9000 && roadhog server",
     "build": "roadhog build",
@@ -15,7 +15,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-modal": "^3.16.3",
-    "sass-loader": "8.0.2",
+    "sass-loader": "^7.3.1",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "hard-source-webpack-plugin": "^0.12.0",
     "husky": "^0.12.0",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.5.0-beta.4"

@@ -15,7 +15,8 @@ class index extends PureComponent {
     super(props);
     this.state = {
       offline: null,
-      browseCategories: [], // Added state for BrowseCategories data
+      browseCategories: null, // Changed from [] to null
+      isLoading: true, // Added loading state
     };
   }
 
@@ -23,72 +24,78 @@ class index extends PureComponent {
     // Initial fetch
     this.loadOfflinePortalData();
     this.loadBrowseCategoriesData();
-    // Set up interval to fetch data every minute
-    this.fetchInterval = setInterval(this.loadOfflinePortalData, 1000);
-    this.fetchInterval = setInterval(this.loadBrowseCategoriesData, 1000);
+    // Set up interval to fetch data every 10 seconds (corrected to avoid overwriting)
+    this.fetchIntervalOffline = setInterval(this.loadOfflinePortalData, 10000);
+    this.fetchIntervalBrowse = setInterval(this.loadBrowseCategoriesData, 10000);
   }
 
   componentWillUnmount() {
     // Clear intervals when the component unmounts
-    clearInterval(this.fetchInterval);
+    clearInterval(this.fetchIntervalOffline);
+    clearInterval(this.fetchIntervalBrowse);
   }
 
   loadOfflinePortalData = async () => {
-    fetch('http://120.46.31.49:8080/etc/kkllpm')
+    fetch('http://localhost:8080/dailyMarket/getSettleLineData')
       .then(response => response.json())
       .then(data => {
         this.setState({
           offline: {
             offlinePortalData: data,
           },
+          isLoading: false, // Set loading to false when data is fetched
         });
       })
       .catch(error => console.error('数据获取失败:', error));
   };
 
   loadBrowseCategoriesData = async () => {
-    fetch('http://120.46.31.49:8080/etc/kklltop5')
+    fetch('http://localhost:8080/dailyMarket/getVolumeBarData')
       .then(response => response.json())
       .then(data => {
         this.setState({
-          browseCategories: data
+          browseCategories: data,
+          isLoading: false, // Set loading to false when data is fetched
         });
       })
       .catch(error => console.error('数据获取失败:', error));
   };
 
   render() {
-    const { offline, browseCategories} = this.state;
+    const { offline, browseCategories, isLoading } = this.state;
 
     return (
       <RightPage>
         <RightTopBox>
-        <BorderBox12 className='right-bottom-borderBox13'>
-          <div className='right-bottom'>
-            <ModuleTitle>
-              <i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}>&#xe7fd;</i>
-              <span style={{ textAlign: 'center', marginLeft: '150px' }}>入站口排行榜</span>
-            </ModuleTitle>
-            <div className='right-top-content'>
-              <BrowseCategories
-                browseCategories={browseCategories}></BrowseCategories>
+          <BorderBox12 className='right-bottom-borderBox13'>
+            <div className='right-bottom'>
+              <ModuleTitle>
+                <i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}></i>
+                <span style={{ textAlign: 'center', marginLeft: '150px' }}>期货交易量排行榜</span>
+              </ModuleTitle>
+              <div className='right-top-content'>
+                {isLoading || !browseCategories ? (
+                  <div>加载中...</div> // Show loading message while data is fetching
+                ) : (
+                  <BrowseCategories volumeData={browseCategories} /> // Pass data as volumeData
+                )}
+              </div>
             </div>
-          </div>
           </BorderBox12>
         </RightTopBox>
 
         <RightBottomBox>
           <BorderBox12 className='right-bottom-borderBox13'>
             <div className='right-bottom'>
-              <ModuleTitle><i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}>&#xe790;</i>
-              <span style={{ textAlign: 'center', marginLeft: '120px' }}>24小时车辆流量动态数据图</span></ModuleTitle>
+              <ModuleTitle>
+                <i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}></i>
+                <span style={{ textAlign: 'center', marginLeft: '120px' }}>期货结算价格动态数据图</span>
+              </ModuleTitle>
               <div className='offline-portal-box'>
                 {offline ? (
-                  <OfflinePortal
-                    offlinePortalData={offline.offlinePortalData} // 使用实时数据
-                  />
+                  <OfflinePortal offlinePortalData={offline.offlinePortalData} />
                 ) : (
-                  ''
+                  <div>加载中...</div> // Show loading message for offline data
                 )}
               </div>
             </div>

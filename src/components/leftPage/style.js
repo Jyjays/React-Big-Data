@@ -63,3 +63,18 @@ export const LeftBottomBox = styled.div`
     }
   }
 `;
+export const ScatterChartBox = styled.div`
+  width: 100%; 
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0.125rem;
+  position: relative;
+`;
+
+export const PieChartBox = styled.div`
+  width: 100%;
+  height: 5rem; /* 为扇形图定义高度 */
+  margin: 0 auto;
+  padding: 0.125rem;
+  position: relative;
+`;

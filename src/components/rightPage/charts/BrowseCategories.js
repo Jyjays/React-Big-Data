@@ -4,19 +4,17 @@ import { BrowseCategoriesOptions } from './options';
 
 class BrowseCategories extends PureComponent {
   render() {
-    const { browseCategories } = this.props;
+    const { volumeData } = this.props;
 
-    // Process the data from props
-    const processedData = browseCategories.map(item => {
-      // Extract station name after the last '-'
-      const parts = item.kkmc.split('-'); // Split the string by '-'
-      const stationName = parts.pop(); // Take the last part
+    // 提取期货名称和对应的成交量
+    const contracts = Object.keys(volumeData.volumes); // ["sc", "bc", "nr", "lu", "ec"]
+    const volumes = contracts.map(contract => volumeData.volumes[contract][0]); // 提取第一个月份的成交量
 
-      return {
-        category: stationName, // Extracted station name
-        inflow: item.count, // Passenger vehicle count
-      };
-    }).reverse(); // Reverse the order of the data
+    // 构建数据供图表使用
+    const processedData = contracts.map((contract, index) => ({
+      category: contract.toUpperCase(), // 将期货名称转为大写（如 "SC"）
+      volume: volumes[index], // 对应成交量
+    }));
 
     return (
       <div
