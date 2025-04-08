@@ -18,6 +18,8 @@ export const RightTopBox = styled.div`
       width: 100%;
       height: 100%;
       border-radius: 10px;
+      margin-right: 3rem;
+      width: 6.5rem;
       background-color: rgba(19, 25, 47, 0.6);
       .feedback-box {
         margin-top: 0.1rem;

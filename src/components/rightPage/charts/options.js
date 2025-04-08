@@ -80,24 +80,6 @@ export const BrowseCategoriesOptions = params => {
 
 
 export const OfflinePortalOptions = params => {
-  // Generate random outbound flow and process the data
-  // const processedData = params.map(item => ({
-  //   time: item.time,
-  //   inbound: item.count, // Inbound flow (count)
-  // }));
-  // console.log(JSON.stringify(params))
-
-  // // Split data into 10 equal parts and take the first value of each part
-  // const splitData = [];
-  // const splitSize = Math.ceil(processedData.length / 10);
-  // for (let i = 0; i < processedData.length; i += splitSize) {
-  //   splitData.push(processedData[i]);
-  // }
-
-  // // Reduce x-axis labels to five evenly spaced labels
-  // const xAxisLabels = splitData.map(item => item.time);
-  // const labelCount = 10;
-  // const reducedLabels = xAxisLabels.filter((_, index) => index % Math.ceil(xAxisLabels.length / labelCount) === 0);
   // 提取 dates 和 settles
   const { dates, settles } = params;
 
@@ -106,6 +88,10 @@ export const OfflinePortalOptions = params => {
     console.error('无效的折线图数据:', params);
     return {};
   }
+
+  // 将 settles 数据保留两位小数
+  const formattedSettles = settles.map(value => parseFloat(value.toFixed(2)));
+
   return {
     tooltip: {
       trigger: 'axis',
@@ -148,9 +134,8 @@ export const OfflinePortalOptions = params => {
       {
         type: 'value',
         name: '结算价格',
-        max: Math.max(...settles) + 2000, // get the max value from the data
-        // get the min value from the data
-        min: Math.min(...settles) - 2000,
+        max: Math.max(...formattedSettles) + 2000, // get the max value from the data
+        min: Math.min(...formattedSettles) - 2000, // get the min value from the data
         axisLine: {
           show: false, // Remove y-axis main line
         },
@@ -172,7 +157,7 @@ export const OfflinePortalOptions = params => {
       {
         name: '结算价格',
         type: 'bar',
-        data: settles,
+        data: formattedSettles,
         barWidth: '30%',
         itemStyle: {
           normal: {

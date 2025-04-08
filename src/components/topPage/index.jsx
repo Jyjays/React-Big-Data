@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment} from 'react';
 import { formatTime } from '../../utils';
 import {
   Decoration10,
@@ -54,14 +54,13 @@ class index extends PureComponent {
                 color={['#568aea', '#000000']}
               />
               <div className='title'>
-                <span className='title-text'>{title}</span>
+                <span className='title-text'>交易数据可视化</span>
                 <Decoration6
                   className='title-bototm top_decoration6'
                   reverse={true}
                   color={['#50e3c2', '#67a1e5']}
                 />
               </div>
-
               <Decoration8
                 reverse={true}
                 className='top_decoration8'
