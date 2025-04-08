@@ -19,7 +19,7 @@ class index extends PureComponent {
   componentDidMount() {
     this.loadCandlestickData();
     this.loadTransactionData(); // 初次加载交易数据
-    this.fetchIntervalCandlestick = setInterval(this.loadCandlestickData, 60000); // 每分钟更新 K 线图
+    this.fetchIntervalCandlestick = setInterval(this.loadCandlestickData, 20000); // 每分钟更新 K 线图
     this.fetchIntervalTransaction = setInterval(this.loadTransactionData, 10000); // 每 10 秒更新交易数据
   }
 

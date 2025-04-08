@@ -1,9 +1,9 @@
-// src/centerPage/centerPage/charts/CandlestickChart.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 
 const CandlestickChart = ({ candlestickData }) => {
   const chartRef = useRef(null);
+  const [currentTitle, setCurrentTitle] = useState('BC'); // 默认显示 BC
 
   useEffect(() => {
     if (!candlestickData || !candlestickData.dates || !candlestickData.data) {
@@ -28,18 +28,27 @@ const CandlestickChart = ({ candlestickData }) => {
     const adjustedMax = maxValue + padding;
 
     const option = {
+      title: {
+        text: currentTitle, // 动态标题
+        left: 'left',
+        top: 'top',
+        textStyle: {
+          color: '#ffffff',
+          fontSize: 16,
+        },
+      },
       backgroundColor: 'rgba(19, 25, 47, 0.6)',
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'cross'
-        }
+          type: 'cross',
+        },
       },
       grid: {
         left: '10%',
         right: '10%',
-        bottom: '15%',  // 增加底部空间，显示X轴标签
-        top: '5%'      // 减少顶部空间，利用上部区域
+        bottom: '15%',
+        top: '5%',
       },
       xAxis: {
         type: 'category',
@@ -47,14 +56,14 @@ const CandlestickChart = ({ candlestickData }) => {
         boundaryGap: true,
         axisLabel: {
           color: '#bcdcff',
-          fontSize: 10, // 缩小字体适应新宽度
-          rotate: 30
+          fontSize: 10,
+          rotate: 30,
         },
         axisLine: {
           lineStyle: {
-            color: '#343f4b'
-          }
-        }
+            color: '#343f4b',
+          },
+        },
       },
       yAxis: {
         type: 'value',
@@ -63,18 +72,18 @@ const CandlestickChart = ({ candlestickData }) => {
         max: adjustedMax,
         axisLabel: {
           color: '#bcdcff',
-          fontSize: 10 // 缩小字体适应新高度
+          fontSize: 10,
         },
         axisLine: {
           lineStyle: {
-            color: '#343f4b'
-          }
+            color: '#343f4b',
+          },
         },
         splitLine: {
           lineStyle: {
-            color: '#343f4b'
-          }
-        }
+            color: '#343f4b',
+          },
+        },
       },
       series: [
         {
@@ -84,39 +93,38 @@ const CandlestickChart = ({ candlestickData }) => {
             color: '#ef5350',
             color0: '#26a69a',
             borderColor: '#ef5350',
-            borderColor0: '#26a69a'
+            borderColor0: '#26a69a',
           },
-          barWidth: '50%' // 缩小柱宽适应新宽度
-        }
+          barWidth: '50%',
+        },
       ],
-      // 滑动条的配置
       dataZoom: [
         {
           type: 'inside',
           start: 0,
-          end: 100
+          end: 100,
         },
         {
           type: 'slider',
           start: 0,
           end: 100,
-          height: 10,           // 降低高度到10px
+          height: 10,
           bottom: 0,
-          backgroundColor: 'rgba(19, 25, 47, 0.3)',  // 使背景更透明
-          fillerColor: 'rgba(47, 69, 84, 0.2)',      // 使填充更透明
-          borderColor: 'transparent',                // 移除边框
-          handleSize: 8,        // 减小手柄大小
+          backgroundColor: 'rgba(19, 25, 47, 0.3)',
+          fillerColor: 'rgba(47, 69, 84, 0.2)',
+          borderColor: 'transparent',
+          handleSize: 8,
           handleStyle: {
             color: '#47dae8',
-            opacity: 0.5        // 使手柄半透明
+            opacity: 0.5,
           },
           textStyle: {
-            show: false         // 隐藏文本
+            show: false,
           },
-          showDetail: false,    // 隐藏详细信息
-          showDataShadow: false // 隐藏数据阴影
-        }
-      ]
+          showDetail: false,
+          showDataShadow: false,
+        },
+      ],
     };
 
     chart.setOption(option);
@@ -130,14 +138,41 @@ const CandlestickChart = ({ candlestickData }) => {
       window.removeEventListener('resize', resizeChart);
       chart.dispose();
     };
-  }, [candlestickData]);
+  }, [candlestickData, currentTitle]); // 依赖 currentTitle，切换时更新图表
 
-  return (
-    <div
-      ref={chartRef}
-      style={{ width: '100%', height: '100%' }}
-    />
-  );
+  const handleTitleChange = () => {
+    // 在 BC、EC、LU 之间切换
+    setCurrentTitle((prevTitle) => {
+      if (prevTitle === 'BC') return 'EC';
+      if (prevTitle === 'EC') return 'LU';
+      return 'BC';
+    });
+  };
+
+    return (
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <button
+          onClick={handleTitleChange}
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            zIndex: 10,
+            backgroundColor: 'transparent', // 设置背景为透明
+            color: '#ffffff', // 确保文字颜色可见
+            border: 'none', // 移除边框
+            padding: '5px 10px',
+            cursor: 'pointer',
+          }}
+        >
+
+        </button>
+        <div
+          ref={chartRef}
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
+    );
 };
 
 export default CandlestickChart;

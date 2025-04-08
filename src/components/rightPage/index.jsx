@@ -71,7 +71,7 @@ class index extends PureComponent {
             <div className='right-bottom'>
               <ModuleTitle>
                 <i className='iconfont' style={{ textAlign: 'center', marginLeft: '10px' }}></i>
-                <span style={{ textAlign: 'center', marginLeft: '150px' }}>期货交易量排行榜</span>
+                <span style={{ textAlign: 'center', marginLeft: '150px' }}>期货交易量视图</span>
               </ModuleTitle>
               <div className='right-top-content'>
                 {isLoading || !browseCategories ? (

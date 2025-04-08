@@ -24,7 +24,10 @@ const PieChart = ({ prefixAmounts }) => {
       backgroundColor: 'rgba(19, 25, 47, 0.6)',
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
+        formatter: (params) => {
+          // 格式化显示信息，保留两位小数
+          return `${params.seriesName} <br/>${params.name}: ${params.value.toFixed(2)} (${params.percent.toFixed(2)}%)`;
+        },
       },
       series: [
         {
@@ -35,7 +38,10 @@ const PieChart = ({ prefixAmounts }) => {
           label: {
             show: true,
             position: 'outside',
-            formatter: '{b}: {d}%',
+            formatter: (params) => {
+              // 格式化标签，保留两位小数
+              return `${params.name}: ${params.percent.toFixed(2)}%`;
+            },
             color: '#bcdcff',
             fontSize: 12,
           },
